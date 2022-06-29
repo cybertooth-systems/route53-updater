@@ -26,8 +26,31 @@ Route53 updated, change id: /change/A1A1A1A1A1A1A1A1A, status: PENDING
 
 </pre>
 
+This expects an EC2 instance with an instance profile and IAM role attached.
+See [AWS documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html)
+for details. Here is an example limited IAM policy to get started with
+route53-updater:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "route53:ChangeResourceRecordSets"
+            ],
+            "Resource": [
+                "arn:aws:route53:::hostedzone/X0X0X0X0X0X0X0X0X"
+            ]
+        }
+    ]
+}
+```
+
 ## Potential Improvements
 
 - [ ] better error handling vs. lazy panics
 - [ ] monitor change status
+- [ ] optional AWS keys as opposed to instance profile
 
